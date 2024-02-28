@@ -122,6 +122,7 @@ BOOLEAN  GATTS_NVRegister (const tGATT_APPL_INFO *p_cb_info)
     return status;
 }
 
+#if GATTS_ROBUST_CACHING_ENABLED
 static void gatt_update_for_database_change(void)
 {
     UINT8 i;
@@ -135,6 +136,7 @@ static void gatt_update_for_database_change(void)
         }
     }
 }
+#endif
 
 /*******************************************************************************
 **
@@ -414,7 +416,9 @@ BOOLEAN GATTS_DeleteService (tGATT_IF gatt_if, tBT_UUID *p_svc_uuid, UINT16 svc_
         GATT_TRACE_DEBUG ("Delete a new service changed item - the service has not yet started");
         osi_free(fixed_queue_try_remove_from_queue(gatt_cb.pending_new_srv_start_q, p_buf));
     } else {
+        #if GATTS_ROBUST_CACHING_ENABLED
         gatt_update_for_database_change();
+        #endif
         if (gatt_cb.srv_chg_mode == GATTS_SEND_SERVICE_CHANGE_AUTO) {
             gatt_proc_srv_chg();
         }
@@ -527,7 +531,9 @@ tGATT_STATUS GATTS_StartService (tGATT_IF gatt_if, UINT16 service_handle,
     if ( (p_buf = gatt_sr_is_new_srv_chg(&p_list->asgn_range.app_uuid128,
                                          &p_list->asgn_range.svc_uuid,
                                          p_list->asgn_range.svc_inst)) != NULL) {
+        #if GATTS_ROBUST_CACHING_ENABLED
         gatt_update_for_database_change();
+        #endif
         if (gatt_cb.srv_chg_mode == GATTS_SEND_SERVICE_CHANGE_AUTO) {
             gatt_proc_srv_chg();
         }
