@@ -592,7 +592,7 @@ static void bta_av_api_register(tBTA_AV_DATA *p_data)
                 }
 #endif
             }
-
+#if 0 // dwf: remove all overriding of COD
             /* Set the Calss of Device (Audio & Capturing/Rendering service class bit) */
             if (p_data->api_reg.tsep == AVDT_TSEP_SRC) {
                 cod.service = BTM_COD_SERVICE_CAPTURING | BTM_COD_SERVICE_AUDIO;
@@ -606,6 +606,7 @@ static void bta_av_api_register(tBTA_AV_DATA *p_data)
 #endif
             }
             utl_set_device_class(&cod, BTA_UTL_SET_COD_ALL);
+#endif
         } /* if 1st channel */
 
         /* get stream configuration and create stream */

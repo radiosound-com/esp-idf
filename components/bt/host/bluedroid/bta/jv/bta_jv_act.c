@@ -728,10 +728,12 @@ void bta_jv_enable(tBTA_JV_MSG *p_data)
     bta_jv_cb.p_dm_cback(BTA_JV_ENABLE_EVT, (tBTA_JV *)&status, 0);
     memset(bta_jv_cb.free_psm_list, 0, sizeof(bta_jv_cb.free_psm_list));
 
+#if 0 // dwf: remove all overriding of COD
     /* Set the Class of Device */
     cod.major = BTM_COD_MAJOR_UNCLASSIFIED;
     cod.minor = BTM_COD_MINOR_UNCLASSIFIED;
     utl_set_device_class(&cod, BTA_UTL_SET_COD_MAJOR_MINOR);
+#endif
 }
 
 /*******************************************************************************
