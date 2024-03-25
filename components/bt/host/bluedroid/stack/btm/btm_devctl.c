@@ -39,6 +39,8 @@
 //#include "btcore/include/module.h"
 //#include "osi/include/osi/thread.h"
 
+#include "esp_debug_helpers.h"
+
 #if BLE_INCLUDED == TRUE
 #include "gatt_int.h"
 #endif /* BLE_INCLUDED */
@@ -614,6 +616,9 @@ tBTM_STATUS BTM_SetDeviceClass (DEV_CLASS dev_class)
     if (!memcmp (btm_cb.devcb.dev_class, dev_class, DEV_CLASS_LEN)) {
         return (BTM_SUCCESS);
     }
+
+    BTM_TRACE_WARNING("BTM_SetDeviceClass 0x%02x%02x%02x", dev_class[0], dev_class[1], dev_class[2]);
+    //esp_backtrace_print(50);
 
     memcpy (btm_cb.devcb.dev_class, dev_class, DEV_CLASS_LEN);
 
