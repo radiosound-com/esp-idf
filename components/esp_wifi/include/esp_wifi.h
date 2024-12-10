@@ -147,6 +147,36 @@ typedef struct {
 #define WIFI_RX_MGMT_BUF_NUM_DEF 0
 #endif
 
+#ifdef CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM
+#define WIFI_STATIC_RX_BUFFER_NUM CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM
+#else
+#define WIFI_STATIC_RX_BUFFER_NUM 0
+#endif
+
+#ifdef CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM
+#define WIFI_DYNAMIC_RX_BUFFER_NUM CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM
+#else
+#define WIFI_DYNAMIC_RX_BUFFER_NUM 0
+#endif
+
+#ifdef CONFIG_ESP_WIFI_TX_BUFFER_TYPE
+#define WIFI_TX_BUFFER_TYPE CONFIG_ESP_WIFI_TX_BUFFER_TYPE
+#else
+#define WIFI_TX_BUFFER_TYPE 0
+#endif
+
+#ifdef CONFIG_ESP_WIFI_DYNAMIC_RX_MGMT_BUF
+#define WIFI_DYNAMIC_RX_MGMT_BUF CONFIG_ESP_WIFI_DYNAMIC_RX_MGMT_BUF
+#else
+#define WIFI_DYNAMIC_RX_MGMT_BUF 0
+#endif
+
+#ifdef CONFIG_ESP_WIFI_ESPNOW_MAX_ENCRYPT_NUM
+#define WIFI_ESPNOW_MAX_ENCRYPT_NUM CONFIG_ESP_WIFI_ESPNOW_MAX_ENCRYPT_NUM
+#else
+#define WIFI_ESPNOW_MAX_ENCRYPT_NUM 0
+#endif
+
 #if CONFIG_ESP_WIFI_CSI_ENABLED
 #define WIFI_CSI_ENABLED         1
 #else
@@ -300,12 +330,12 @@ extern wifi_osi_funcs_t g_wifi_osi_funcs;
 #define WIFI_INIT_CONFIG_DEFAULT() { \
     .osi_funcs = &g_wifi_osi_funcs, \
     .wpa_crypto_funcs = g_wifi_default_wpa_crypto_funcs, \
-    .static_rx_buf_num = CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM,\
-    .dynamic_rx_buf_num = CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM,\
-    .tx_buf_type = CONFIG_ESP_WIFI_TX_BUFFER_TYPE,\
+    .static_rx_buf_num = WIFI_STATIC_RX_BUFFER_NUM,\
+    .dynamic_rx_buf_num = WIFI_DYNAMIC_RX_BUFFER_NUM,\
+    .tx_buf_type = WIFI_TX_BUFFER_TYPE,\
     .static_tx_buf_num = WIFI_STATIC_TX_BUFFER_NUM,\
     .dynamic_tx_buf_num = WIFI_DYNAMIC_TX_BUFFER_NUM,\
-    .rx_mgmt_buf_type = CONFIG_ESP_WIFI_DYNAMIC_RX_MGMT_BUF,\
+    .rx_mgmt_buf_type = WIFI_DYNAMIC_RX_MGMT_BUF,\
     .rx_mgmt_buf_num = WIFI_RX_MGMT_BUF_NUM_DEF,\
     .cache_tx_buf_num = WIFI_CACHE_TX_BUFFER_NUM,\
     .csi_enable = WIFI_CSI_ENABLED,\
@@ -320,7 +350,7 @@ extern wifi_osi_funcs_t g_wifi_osi_funcs;
     .mgmt_sbuf_num = WIFI_MGMT_SBUF_NUM, \
     .feature_caps = WIFI_FEATURE_CAPS, \
     .sta_disconnected_pm = WIFI_STA_DISCONNECTED_PM_ENABLED,  \
-    .espnow_max_encrypt_num = CONFIG_ESP_WIFI_ESPNOW_MAX_ENCRYPT_NUM, \
+    .espnow_max_encrypt_num = WIFI_ESPNOW_MAX_ENCRYPT_NUM, \
     .tx_hetb_queue_num = WIFI_TX_HETB_QUEUE_NUM, \
     .dump_hesigb_enable = WIFI_DUMP_HESIGB_ENABLED, \
     .magic = WIFI_INIT_CONFIG_MAGIC\
